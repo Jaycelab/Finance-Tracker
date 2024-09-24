@@ -7,7 +7,11 @@ export const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>Welcome {user?.firstName}! Here Are Your Finance Records:</h1>
+      <h1>
+        Welcome {user?.firstName}!
+        <br />
+        Here Are Your Financial Records:
+      </h1>
       <FinancialRecordForm />
       <FinancialRecordList />
     </div>
