@@ -1,7 +1,44 @@
+import { useState } from "react";
+import { useUser } from "@clerk/clerk-react";
+
 export const FinancialRecordForm = () => {
+  //value state to equal value of input
+
+  const [description, setDescription] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<string>("");
+
+  //get user from clerk
+  const { user } = useUser();
+
+  //submit form function
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const newRecord = {
+      userId: user?.id,
+      date: new Date().toISOString(),
+      description: description,
+      amount: parseFloat(amount),
+      category: category,
+      paymentMethod: paymentMethod,
+    };
+
+    //function to add record to database
+    /*setup later
+     addRecord(newRecord);*/
+
+    //after adding record, reset form
+    setDescription("");
+    setAmount("");
+    setCategory("");
+    setPaymentMethod("");
+  };
+
   return (
     <div className="form-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-field">
           <label>Description: </label>
           <input type="text" required className="input" />
